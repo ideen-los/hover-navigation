@@ -1,11 +1,152 @@
+$menu-width: 400px;
+$menu-max-height: 30vh;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: ghostwhite;
+}
+
 header {
   display: flex;
   justify-content: center;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  background-color: #fff;
+}
+
+.dropdown-menu-wrapper {
+  max-width: $menu-width;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown-menu {
+  margin: 0;
+  padding: 0;
+
+  background-color: #fff;
+  list-style: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.2s ease forwards;
+}
+
+.dropdown-content {
+  position: absolute;
+  left: 0;
+  top: 100%;
+
+  width: 100%;
+  height: auto;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+  visibility: hidden;
+  opacity: 0;
+
+  background-color: #fff;
+
+  li {
+    max-width: $menu-width;
+
+    padding: 0.5rem 2rem;
+    margin: 0 auto;
+
+    opacity: 0;
+    transform: translateY(-5px);
+
+    &:hover {
+      background-color: #f8f8f8;
+    }
+  }
+}
+
+.visible .dropdown-content {
+  max-height: $menu-max-height;
+  visibility: visible;
+  opacity: 1;
+  padding: 3rem 0 4rem;
+  transition: max-height 0.3s ease 0.2s, opacity 0.3s ease 0.2s;
+}
+
+.is-active .dropdown-content {
+  max-height: $menu-max-height;
+  visibility: visible;
+  opacity: 1;
+  padding: 3rem 0 4rem;
+
+  li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden .dropdown-content {
+  max-height: 0;
+  visibility: hidden;
+  opacity: 0;
+  padding: 0;
+  transition: all 0.22s ease 0.2s, opacity 0.3s ease 0.25s;
+}
+
+.dropdown-trigger {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: rgb(215, 95, 95);
+  }
 }
 
 #content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3rem;
 }

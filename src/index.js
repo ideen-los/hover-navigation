@@ -1,3 +1,9 @@
+import { triggerDropdown } from './dropdown-menu';
 import './style.scss';
+import placeholderImage from './img/indian-food.jpg';
 
-console.log('Everything seems to be working fine.'); // comment
+triggerDropdown();
+content = document.getElementById('content');
+const img = new Image();
+img.src = placeholderImage;
+content.appendChild(img);
