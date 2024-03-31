@@ -1,6 +1,7 @@
 export const triggerDropdown = function triggerDropdown() {
   const navs = document.querySelectorAll('.nav');
   const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+  const menuBackdrop = document.querySelector('.dropdown-menu-backdrop');
   let menuIsActive = false;
 
   dropdownMenus.forEach((menu) => {
@@ -25,6 +26,7 @@ export const triggerDropdown = function triggerDropdown() {
         });
 
         menu.classList.add('visible');
+        menuBackdrop.classList.add('menu-is-active');
         menuIsActive = true;
 
         menuItems.forEach((item, index) => {
@@ -35,8 +37,8 @@ export const triggerDropdown = function triggerDropdown() {
               item.classList.add('fade-in');
               // Ensure animation only plays forwards to keep element visible after animation
               item.style.animationFillMode = 'forwards';
-            }, index * 50);
-          }, 250);
+            }, index * 20);
+          }, 300);
         });
       } else {
         dropdownMenus.forEach((menu) => {
@@ -58,6 +60,7 @@ export const triggerDropdown = function triggerDropdown() {
           const menuItems = menuContent.querySelectorAll('li');
           const itemCount = menuItems.length; // Get the total number of items
 
+          menu.classList.add('disable-interaction'); // Disable interactions
           menu.classList.remove('visible');
           menu.classList.add('hidden');
           menu.classList.remove('is-active');
@@ -73,30 +76,36 @@ export const triggerDropdown = function triggerDropdown() {
                 item.classList.add('fade-out');
                 // Ensure animation only plays forwards to keep element visible after animation
                 item.style.animationFillMode = 'forwards';
-              }, reverseIndex * 20);
+              }, reverseIndex * 1);
 
               // Calculate total animation time
-              const totalAnimationTime = 10 + (itemCount - 1) * 50 + 500;
+              const totalAnimationTime = 10 + (itemCount - 1) * 20 + 100;
 
               // Set timeout to remove the classes after all animations are complete
               setTimeout(() => {
                 item.classList.remove('fade-out');
                 item.classList.remove('fade-in');
                 item.style.animationFillMode = '';
+
+                // Start of modifications
+                if (index === itemCount - 1) {
+                  // Check if it's the last item
+                  setTimeout(() => {
+                    menu.classList.remove('disable-interaction'); // Re-enable interactions
+                  }, totalAnimationTime);
+                }
               }, totalAnimationTime);
             }, 30);
           });
         }
       });
 
+      menuBackdrop.classList.remove('menu-is-active');
+      menuBackdrop.classList.add('menu-is-inactive');
+      setTimeout(() => {
+        menuBackdrop.classList.remove('menu-is-inactive');
+      }, 350);
       menuIsActive = false;
     });
   });
 };
-
-/* function removeAllIsActiveClasses(activeMenu) {
-  dropdownMenus.forEach((menu) => {
-    if (menu !== activeMenu) menu.classList.remove('is-active');
-  });
-}
- */
