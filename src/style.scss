@@ -1,8 +1,9 @@
-$menu-width: 400px;
+$menu-width: 500px;
 $menu-max-height: 50vh;
-$menu-background-color: #161617;
-$nav-items-color: #ccc;
-$menu-items-color: #eee;
+$menu-background-color: #16161a;
+$nav-items-color: #bbb;
+$nav-items-hover-color: #eee;
+$menu-items-color: #ddd;
 $menu-items-hover-color: #fff;
 $menu-content-padding: 5.5rem 0 5rem;
 
@@ -59,7 +60,7 @@ header {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
   to {
     opacity: 1;
@@ -73,17 +74,17 @@ header {
   }
   to {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(-5px);
   }
 }
 
 .fade-in {
   opacity: 0;
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 .fade-out {
   opacity: 1;
-  animation: fadeOut 0.2s ease forwards;
+  animation: fadeOut 0.3s ease forwards;
 }
 
 .dropdown-content {
@@ -92,11 +93,11 @@ header {
   top: 100%;
 
   width: 100%;
-  height: auto;
   max-height: 0;
-  margin: -51px 0 0;
+  margin: -55px 0 0;
   padding: 0;
 
+  font-size: 1rem;
   list-style: none;
   visibility: hidden;
   opacity: 0;
@@ -111,11 +112,14 @@ header {
     padding: 0.5rem 2rem;
     margin: 0 auto;
 
+    font-weight: bold;
     opacity: 0;
 
     a {
       text-decoration: none;
       color: $menu-items-color;
+
+      transition: all 0.3s ease;
 
       &:hover {
         color: $menu-items-hover-color;
@@ -129,7 +133,7 @@ header {
   visibility: visible;
   opacity: 1;
   padding: $menu-content-padding;
-  transition: max-height 0.2s ease-out 0.2s, opacity 0.2s ease-out 0.2s;
+  transition: all 0.25s ease-out 0.2s;
 }
 
 .is-active .dropdown-content {
@@ -137,6 +141,7 @@ header {
   visibility: visible;
   opacity: 1;
   padding: $menu-content-padding;
+  transition: none;
 
   li {
     opacity: 1;
@@ -145,19 +150,28 @@ header {
 
 .hidden .dropdown-content {
   max-height: 0;
+  padding: 0;
+
   visibility: hidden;
   opacity: 0;
-  padding: 0;
+
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   transition: all 0.2s ease-in 0.1s, opacity 0.2s ease 0.2s;
+
+  li {
+    opacity: 0;
+    animation: fadeOut 0.2s ease forwards;
+  }
 }
 
 .dropdown-trigger {
-  padding: 1rem 2rem;
+  padding: 1.3rem 2rem 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.25s ease-out 0.15s;
+  transition: all 1s ease;
 
   &:hover {
-    color: $menu-items-hover-color;
+    color: $nav-items-hover-color;
   }
 }
 
@@ -173,7 +187,7 @@ header {
   justify-content: center;
 
   img {
-    max-width: 80%;
+    max-width: 100%;
   }
 }
 
@@ -184,14 +198,15 @@ header {
   height: 100%;
 
   opacity: 0;
-  backdrop-filter: blur(30px);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
   z-index: 0;
 
   &.menu-is-active {
     opacity: 1;
-    transition: opacity 0.2s ease 0.28s;
+    transition: opacity 0.3s ease-in-out 0.2s;
   }
   &.menu-is-inactive {
-    transition: opacity 0.2s ease 0.15s;
+    transition: opacity 0.3s ease 0.15s;
   }
 }

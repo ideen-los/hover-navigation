@@ -1,6 +1,6 @@
 import { triggerDropdown } from './dropdown-menu';
 import './style.scss';
-import placeholderImage from './img/indian-food.jpg';
+import placeholderImage from './img/ales-nesetril-Im7lZjxeLhg-unsplash.jpg';
 
 triggerDropdown();
 content = document.getElementById('content');
