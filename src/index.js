@@ -3,7 +3,7 @@ import './style.scss';
 import placeholderImage from './img/ales-nesetril-Im7lZjxeLhg-unsplash.jpg';
 
 triggerDropdown();
-content = document.getElementById('content');
+content1 = document.getElementById('content1');
 const img = new Image();
 img.src = placeholderImage;
-content.appendChild(img);
+content1.appendChild(img);
