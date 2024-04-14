@@ -7,6 +7,8 @@ $menu-items-color: #ddd;
 $menu-items-hover-color: #fff;
 $menu-content-padding: 5.5rem 0 5rem;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -17,12 +19,14 @@ body {
   padding: 0;
   height: 100%;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter Tight', sans-serif;
+  letter-spacing: 0.3px;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #000;
 }
 
@@ -45,8 +49,11 @@ body {
   flex-direction: column;
 
   flex-basis: 100vh;
+  width: 100%;
+  max-width: 1000px;
   flex-shrink: 0;
 
+  overflow: hidden;
   background-color: cornflowerblue;
 }
 
@@ -79,7 +86,7 @@ header.dropdown-menu-header {
   color: $nav-items-color;
 }
 
-.dropdown-menu {
+.dropdown-menu-item {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -245,6 +252,12 @@ header.dropdown-menu-header {
   Mobile menu CSS
 #######################################################################*/
 
+#content2 {
+  img {
+    max-width: 100%;
+  }
+}
+
 $s: 4px;
 
 .burger-wrapper {
@@ -254,25 +267,28 @@ $s: 4px;
   margin: auto;
   width: $s * 10;
   height: $s * 8;
+
   cursor: pointer;
+  z-index: 2;
 
   .hamburger {
     background: #ffc003;
     width: $s * 10;
     height: $s;
     position: relative;
-    transition: background 10ms 300ms ease;
+    transition: background 10ms 250ms ease;
     transform: translateY($s * 4);
 
     &:before,
     &:after {
-      transition: top 300ms 350ms ease, transform 300ms 50ms ease;
+      transition: top 250ms 300ms ease, transform 250ms ease, background 250ms 300ms;
       position: absolute;
       background: #ffc003;
       width: $s * 10;
       height: $s;
       content: '';
     }
+
     &:before {
       top: $s * -3;
     }
@@ -289,14 +305,16 @@ $s: 4px;
       background: transparent;
       &:after,
       &:before {
-        transition: top 300ms 50ms ease, transform 300ms 350ms ease;
+        transition: top 250ms ease, transform 250ms 300ms ease, background 250ms 300ms;
         top: 0;
       }
       &:before {
         transform: rotate(45deg);
+        background: #fff;
       }
       &:after {
         transform: rotate(-45deg);
+        background: #fff;
       }
     }
   }
@@ -304,4 +322,109 @@ $s: 4px;
 
 .hamburger-hidden {
   display: none;
+}
+
+#flyout-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+
+  padding: 6rem 0 0 6rem;
+  width: 900px;
+  max-width: 80%;
+  height: 100%;
+
+  z-index: 1;
+  background-color: #e6b353;
+  box-shadow: rgba(0, 0, 0, 0.2) -18px 0 50px -10px;
+
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
+  &.toggled {
+    transform: translateX(0);
+  }
+}
+
+.hamburger-menu-item {
+  margin: 3rem 0 0;
+  max-width: 82%;
+
+  list-style: none;
+  color: #fff;
+  opacity: 0;
+  animation: fadeOut 0.45s ease forwards;
+  cursor: pointer;
+}
+
+.toggled .hamburger-menu-item {
+  animation: fadeIn 0.6s ease forwards;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.22s + (0.1s * $i);
+    }
+  }
+}
+
+.hamburger-menu-item.dropdown {
+  &:after {
+    content: '▼';
+    color: #ffecc8;
+    position: absolute;
+    right: 0;
+    top: 19px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.hamburger-content {
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+
+  list-style: none;
+  font-size: 0.8em;
+
+  li {
+    padding: 0.5em 0 0;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+.is-active .hamburger-content {
+  padding: 1rem 0 0;
+  visibility: visible;
+  height: auto;
+  opacity: 1;
+}
+
+.hamburger-trigger {
+  font-size: 2rem;
+}
+
+.dropdown .hamburger-trigger > span {
+  display: block;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #eeca86;
+}
+
+#menu-backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  z-index: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  transition: opacity 0.3s 0.3s;
+
+  &.show {
+    opacity: 1;
+  }
 }

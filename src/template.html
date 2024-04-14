@@ -10,7 +10,7 @@
       <header class="dropdown-menu-header">
         <div class="nav">
           <div class="dropdown-menu-wrapper">
-            <ul class="dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu-item" aria-haspopup="true" aria-expanded="false">
               <li class="dropdown-trigger">
                 Business Plan
                 <ul class="dropdown-content">
@@ -21,7 +21,7 @@
                 </ul>
               </li>
             </ul>
-            <ul class="dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu-item" aria-haspopup="true" aria-expanded="false">
               <li class="dropdown-trigger">
                 <span>Products</span>
                 <ul class="dropdown-content">
@@ -31,7 +31,7 @@
                 </ul>
               </li>
             </ul>
-            <ul class="dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu-item" aria-haspopup="true" aria-expanded="false">
               <li class="dropdown-trigger">
                 <span>Team</span>
                 <ul class="dropdown-content">
@@ -43,7 +43,7 @@
                 </ul>
               </li>
             </ul>
-            <ul class="dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu-item" aria-haspopup="true" aria-expanded="false">
               <li class="dropdown-trigger">
                 <span>About Us</span>
                 <ul class="dropdown-content">
@@ -61,10 +61,54 @@
       <div class="dropdown-menu-backdrop"></div>
     </div>
     <div class="ui-interactions-mobile-menu">
-      <input id="togglenav" class="menu-trigger hamburger-hidden" type="checkbox" />
-      <label class="burger-wrapper" for="togglenav">
-        <div class="hamburger"></div>
-      </label>
+      <div id="content2">
+        <input id="togglenav" class="menu-trigger hamburger-hidden" type="checkbox" />
+        <label class="burger-wrapper" for="togglenav">
+          <div class="hamburger"></div>
+        </label>
+
+        <div id="flyout-menu">
+          <ul class="hamburger-menu-item dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="hamburger-trigger">
+              <span>Business Plan</span>
+              <ul class="hamburger-content">
+                <li><a href="#">Mission & Vision</a></li>
+                <li><a href="#">Strategy</a></li>
+                <li><a href="#">Market Analysis</a></li>
+                <li><a href="#">Financial Projections</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="hamburger-menu-item dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="hamburger-trigger">
+              <span>Products</span>
+              <ul class="hamburger-content">
+                <li><a href="#">New Releases</a></li>
+                <li><a href="#">Featured Products </a></li>
+                <li><a href="#">All Products </a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="hamburger-menu-item" aria-haspopup="true" aria-expanded="false">
+            <li class="hamburger-trigger">
+              <span>Team</span>
+            </li>
+          </ul>
+          <ul class="hamburger-menu-item dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="hamburger-trigger">
+              <span>About Us</span>
+              <ul class="hamburger-content">
+                <li><a href="#">Company History</a></li>
+                <li><a href="#">Our Values</a></li>
+                <li><a href="#">Community Involvement </a></li>
+                <li><a href="#">Press</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div id="menu-backdrop"></div>
+      </div>
     </div>
   </body>
 </html>

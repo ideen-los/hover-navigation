@@ -1,6 +1,6 @@
 export const triggerDropdown = function triggerDropdown() {
   const navs = document.querySelectorAll('.nav');
-  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+  const dropdownMenus = document.querySelectorAll('.dropdown-menu-item');
   const menuBackdrop = document.querySelector('.dropdown-menu-backdrop');
   let menuIsActive = false;
 
