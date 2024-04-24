@@ -22,6 +22,14 @@ module.exports = {
   module: {
     rules: [
       {
+        // Rule for font files
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext][query]',
+        },
+      },
+      {
         // Rule for SCSS files
         test: /\.scss$/,
         use: [
