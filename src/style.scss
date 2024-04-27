@@ -264,6 +264,7 @@ header.dropdown-menu-header {
     transform: translateX(0);
   }
 }
+
 @keyframes fadeOutMobile {
   from {
     opacity: 1;
@@ -349,11 +350,96 @@ $s: 4px;
   display: none;
 }
 
+.hamburger-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 90%;
+  height: 100%;
+
+  margin: 9rem 0 0;
+  padding: 0 3.5rem 0 7.6rem;
+
+  list-style: none;
+
+  li {
+    list-style: none;
+    font-size: 2rem;
+    color: #fff;
+
+    cursor: pointer;
+    opacity: 1;
+
+    + li {
+      margin: 2rem 0 0;
+    }
+
+    a {
+      position: relative;
+      display: block;
+      padding: 0.5rem;
+
+      color: #fff;
+      text-decoration: none;
+
+      &:active {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    &.dropdown {
+      > a {
+        &::after,
+        &::before {
+          content: '\f054';
+          font-family: 'FontAwesome';
+          color: #ffecc8;
+          position: absolute;
+          right: 0.5rem;
+          top: 17px;
+          font-size: 24px;
+        }
+      }
+    }
+
+    &.back a {
+      border: 0;
+
+      &::before {
+        content: '\f053';
+        font-family: 'FontAwesome';
+        color: #ffecc8;
+        position: absolute;
+        left: -40px;
+        top: 17px;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &.submenu {
+    margin: 0;
+    visibility: hidden;
+    opacity: 0;
+
+    animation: fadeOutMobile 0.45s ease forwards;
+
+    &.is-active {
+      animation: fadeInMobile 0.45s ease forwards 0.3s;
+    }
+
+    &.hamburger-menu {
+      width: 100%;
+    }
+  }
+}
+
 #flyout-menu {
   position: absolute;
   top: 0;
   right: 0;
-  /* transform: translateX(100%); */
+  transform: translate3d(100%, 0, 0);
 
   width: 900px;
   max-width: 80%;
@@ -365,105 +451,80 @@ $s: 4px;
   box-shadow: rgba(0, 0, 0, 0.2) -18px 0 50px -10px;
 
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
+
   &.toggled {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
-}
+  &:not(.toggled) .submenu {
+    animation: fadeOutMobile 0.45s ease forwards;
+  }
 
-.hamburger-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
+  > .hamburger-menu {
+    padding: 0 3.5rem 0 6rem;
 
-  width: 100%;
-  height: 100%;
+    > li {
+      > a {
+        padding: 0.5rem 0.5rem 0.5rem 2rem;
+        border-bottom: 1px solid #eeca86;
+      }
 
-  margin: 9rem 0 0;
-  padding: 0 3.5em 0 5rem;
-
-  list-style: none;
-
-  li {
-    list-style: none;
-    font-size: 2rem;
-    color: #fff;
-
-    cursor: pointer;
-    opacity: 1;
-    /* animation: fadeOutMobile 0.45s ease forwards; */
-
-    + li {
-      margin: 3rem 0 0;
-    }
-
-    a {
-      position: relative;
-      display: block;
-      padding: 0 0 0.5rem;
-
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid #eeca86;
-    }
-
-    &.dropdown > a {
-      &::before {
-        content: '\f054';
+      &:first-of-type > a::before {
+        content: '\e473';
+        right: auto;
+        left: 0;
+        top: 20px;
+        font-size: 20px;
+      }
+      &:nth-of-type(2) > a::before {
+        content: '\f466';
+        right: auto;
+        left: 0;
+        top: 20px;
+        font-size: 20px;
+      }
+      &:nth-of-type(3) > a::before {
+        content: '\f500';
         font-family: 'FontAwesome';
         color: #ffecc8;
         position: absolute;
-        right: 0;
-        top: 10px;
-        font-size: 24px;
+        top: 19px;
+        left: 0;
+        font-size: 20px;
+      }
+      &:nth-of-type(4) > a::before {
+        content: '\f004';
+        font-family: 'FontAwesome';
+        color: #ffecc8;
+        position: absolute;
+        top: 19px;
+        left: 0;
+        font-size: 20px;
       }
     }
   }
-
-  &.submenu {
-    margin: 0;
-    visibility: hidden;
-    opacity: 0;
-
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
-
-    &.is-active {
-      animation: fadeInMobile 0.45s ease forwards;
-    }
-  }
 }
 
-.hamburger-trigger {
+.submenu-trigger {
+  opacity: 0;
+  font-size: 2rem;
+  animation: fadeOutMobile 0.45s ease forwards;
+}
+
+.toggled .submenu-trigger {
+  animation: fadeInMobile 0.45s ease forwards;
+
   &.is-not-active {
     animation: fadeOutMobile 0.45s ease forwards;
+    opacity: 0;
   }
 }
 
-.toggled .hamburger-menu-item {
-  /* animation: fadeInMobile 0.45s ease forwards; */
-
+.toggled .hamburger-menu > li {
   @for $i from 1 through 5 {
-    &:nth-child(#{$i}) {
-      animation-delay: 0.32s + (0.07s * $i);
+    &:nth-child(#{$i}) .submenu-trigger:not(.is-not-active) {
+      animation-delay: 0.3s + (0.1s * $i);
     }
   }
-}
-
-/* .hamburger-content {
-  list-style: none;
-  font-size: 0.8em;
-
-  li {
-    padding: 0.5em 0 0;
-
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-  }
-} */
-
-.hamburger-trigger {
-  font-size: 2rem;
 }
 
 #menu-backdrop {
