@@ -57,6 +57,15 @@ body {
   background-color: cornflowerblue;
 }
 
+.ui-interactions-image-slider {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  flex-basis: 100vh;
+  flex-shrink: 0;
+}
+
 /*######################################################################
   Dropdown menu CSS
 #######################################################################*/
@@ -464,40 +473,42 @@ $s: 4px;
 
     > li {
       > a {
-        padding: 0.5rem 0.5rem 0.5rem 2rem;
+        padding: 0.5rem 0.5rem 0.5rem 3rem;
         border-bottom: 1px solid #eeca86;
       }
 
       &:first-of-type > a::before {
         content: '\e473';
         right: auto;
-        left: 0;
+        left: 5px;
         top: 20px;
         font-size: 20px;
+        color: #fff;
       }
       &:nth-of-type(2) > a::before {
         content: '\f466';
         right: auto;
-        left: 0;
+        left: 5px;
         top: 20px;
         font-size: 20px;
+        color: #fff;
       }
       &:nth-of-type(3) > a::before {
         content: '\f500';
         font-family: 'FontAwesome';
-        color: #ffecc8;
+        color: #fff;
         position: absolute;
         top: 19px;
-        left: 0;
+        left: 5px;
         font-size: 20px;
       }
       &:nth-of-type(4) > a::before {
         content: '\f004';
         font-family: 'FontAwesome';
-        color: #ffecc8;
+        color: #fff;
         position: absolute;
         top: 19px;
-        left: 0;
+        left: 5px;
         font-size: 20px;
       }
     }
@@ -540,5 +551,62 @@ $s: 4px;
 
   &.show {
     opacity: 1;
+  }
+}
+
+/*######################################################################
+  Image slider CSS
+#######################################################################*/
+.image-slider {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 1200px;
+}
+
+.slider-track {
+  display: flex;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+
+  img {
+    max-width: 1200px;
+    height: auto;
+    align-self: center;
+  }
+}
+
+.move-to {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  height: 45px;
+  width: 45px;
+
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &::before {
+    content: '\f053';
+    font-family: 'FontAwesome';
+    color: #ffecc8;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+  }
+
+  &.next {
+    left: auto;
+    right: 15px;
+
+    &::before {
+      content: '\f054';
+    }
   }
 }
