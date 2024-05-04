@@ -14,7 +14,9 @@ import {
   triggerMobileDropdown,
 } from './mobile-menu';
 import {
+  addDotNavigationToSlider,
   addImagesToSlider,
+  handleDotNavigation,
   handleNextAndPreviousButton,
   preloadImages,
   preloadedImages,
@@ -38,24 +40,7 @@ img2.src = placeholderImage2;
 content2.appendChild(img2);
 
 // Image slider
-/* preloadImages([sliderImg1, sliderImg2, sliderImg3, sliderImg4, sliderImg5]).then(() => {
-  addImagesToSlider(preloadedImages);
-}); */
-const sliderTrack = document.querySelector('.slider-track');
-const sliderImage1 = new Image();
-sliderImage1.src = sliderImg1;
-sliderTrack.appendChild(sliderImage1);
-const sliderImage2 = new Image();
-sliderImage2.src = sliderImg2;
-sliderTrack.appendChild(sliderImage2);
-const sliderImage3 = new Image();
-sliderImage3.src = sliderImg3;
-sliderTrack.appendChild(sliderImage3);
-const sliderImage4 = new Image();
-sliderImage4.src = sliderImg4;
-sliderTrack.appendChild(sliderImage4);
-const sliderImage5 = new Image();
-sliderImage5.src = sliderImg5;
-sliderTrack.appendChild(sliderImage5);
-
+addImagesToSlider([sliderImg1, sliderImg2, sliderImg3, sliderImg4, sliderImg5]);
+addDotNavigationToSlider();
+handleDotNavigation();
 handleNextAndPreviousButton();
