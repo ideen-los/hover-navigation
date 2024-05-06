@@ -33,7 +33,7 @@ export const addImagesToSlider = function addImagesToSlider(urls) {
 // Adds the dot navigation to the slider
 export const addDotNavigationToSlider = function addDotNavigationToSlider() {
   const sliderImages = document.querySelectorAll('.slider-track img');
-  const imageSlider = getElement('.image-slider');
+  const imageSlider = getElement('.slider-container');
 
   let imageCounter = 0;
   const dotContainer = createDotContainer();
@@ -51,6 +51,9 @@ export const addDotNavigationToSlider = function addDotNavigationToSlider() {
 export const handleDotNavigation = function handleDotNavigation() {
   const dotContainer = getElement('.dot-container');
   const sliderTrack = getElement('.slider-track');
+  const dotNavigationElements = document.querySelectorAll('.dot-container div');
+
+  updateDotNavigation(dotNavigationElements, 0);
 
   dotContainer.addEventListener('click', (e) => {
     const sliderTrackWidth = sliderTrack.getBoundingClientRect().width;
@@ -127,7 +130,6 @@ class SlideController {
 export const handleNextAndPreviousButton = function handleNextAndPreviousButton() {
   const imageSlider = getElement('.image-slider');
   const sliderTrack = getElement('.slider-track');
-  const sliderImages = document.querySelectorAll('.slider-track img');
   const dotNavigationElements = document.querySelectorAll('.dot-container div');
   const slideController = new SlideController();
 
@@ -135,10 +137,6 @@ export const handleNextAndPreviousButton = function handleNextAndPreviousButton(
   let activeIndex;
 
   imageSlider.addEventListener('click', (e) => {
-    /* const sliderTrackStyles = window.getComputedStyle(sliderTrack);
-    const sliderTrackTransformValue = new DOMMatrix(sliderTrackStyles.transform).m41;
-    const sliderTrackWidth = sliderTrack.getBoundingClientRect().width; */
-
     sliderTrack.addEventListener('transitionend', () => {
       transitionEnded = true;
     });
@@ -149,27 +147,21 @@ export const handleNextAndPreviousButton = function handleNextAndPreviousButton(
       // If the first image is in focus, display the last image on clicking previous
       if (slideController.isFirstImage()) {
         slideController.moveSliderToLastImage();
-        /* sliderTrack.style.transform = `translateX(${
-          -(sliderImages.length - 1) * sliderTrackWidth
-        }px)`; */
-
         // Removes any .is-active class from the dot navigation
         // Adds the .is-active class to the last dot
         updateDotNavigation(dotNavigationElements, dotNavigationElements.length - 1);
       } else {
         // If the first image is NOT in focus, move one image to the left, when clicking previous
         slideController.moveSliderOneImageBackward();
-        /* sliderTrack.style.transform = `translateX(${
-          sliderTrackTransformValue + sliderTrackWidth
-        }px)`;
- */
         // Calculates which image is currently in focus
-        activeIndex = Math.abs(sliderTrackTransformValue) / sliderTrackWidth - 1;
+        activeIndex =
+          Math.abs(slideController.getCurrentTransformValue()) /
+            slideController.getSliderTrackWidth() -
+          1;
         // Removes any .is-active class from the dot navigation
         // Adds .is-active class to the dot that corresponds to the image that will be in focus
         updateDotNavigation(dotNavigationElements, activeIndex);
       }
-
       transitionEnded = false;
 
       // Substracts the width of the .slider-track element from it's current transform: translateX value.
@@ -178,26 +170,35 @@ export const handleNextAndPreviousButton = function handleNextAndPreviousButton(
       // If the last image is in focus, show the first image when clicking next
       if (slideController.isLastImage()) {
         slideController.moveSliderToFirstImage();
-        /* sliderTrack.style.transform = 'translateX(0)'; */
-
         // Removes any .is-active class from the dot navigation
         // Adds the .is-active class to the first dot
         updateDotNavigation(dotNavigationElements, 0);
       } else {
         // If the last image is NOT in focus, move the .slide-track one image to the right
         slideController.moveSliderOneImageForward();
-        /* sliderTrack.style.transform = `translateX(${
-          sliderTrackTransformValue - sliderTrackWidth
-        }px)`; */
-
         // Calculates which image is currently in focus
-        activeIndex = Math.abs(sliderTrackTransformValue / sliderTrackWidth - 1);
+        activeIndex = Math.abs(
+          slideController.getCurrentTransformValue() / slideController.getSliderTrackWidth() - 1
+        );
         // Removes any .is-active class from the dot navigation
         // Adds .is-active class to the dot that corresponds to the image that will be in focus
         updateDotNavigation(dotNavigationElements, activeIndex);
       }
-
       transitionEnded = false;
     }
   });
+
+  setInterval(function () {
+    if (slideController.isLastImage() && transitionEnded === true) {
+      slideController.moveSliderToFirstImage();
+      updateDotNavigation(dotNavigationElements, 0);
+    } else if (!slideController.isLastImage() && transitionEnded === true) {
+      // Calculates which image is currently in focus
+      activeIndex = Math.abs(
+        slideController.getCurrentTransformValue() / slideController.getSliderTrackWidth() - 1
+      );
+      slideController.moveSliderOneImageForward();
+      updateDotNavigation(dotNavigationElements, activeIndex);
+    }
+  }, 5000);
 };

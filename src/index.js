@@ -18,8 +18,6 @@ import {
   addImagesToSlider,
   handleDotNavigation,
   handleNextAndPreviousButton,
-  preloadImages,
-  preloadedImages,
 } from './image-slider';
 
 // Desktop dropdown menu

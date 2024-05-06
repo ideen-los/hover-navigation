@@ -557,6 +557,10 @@ $s: 4px;
 /*######################################################################
   Image slider CSS
 #######################################################################*/
+.slider-container {
+  position: relative;
+  padding-bottom: 30px;
+}
 .image-slider {
   position: relative;
   width: 100%;
@@ -620,7 +624,7 @@ $s: 4px;
   position: absolute;
   display: flex;
   gap: 0.7rem;
-  bottom: 20px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 
