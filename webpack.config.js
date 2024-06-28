@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,8 +11,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Dynamic UI Interactions',
+      title: 'Hover Navigation',
       template: './src/template.html',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/fonts/', to: 'fonts/' }, // Copies all fonts preserving their names
+      ],
     }),
   ],
   output: {
@@ -21,14 +27,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        // Rule for font files
-        test: /\.(woff|woff2|eot|ttf|svg)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'fonts/[hash][ext][query]',
-        },
-      },
       {
         // Rule for SCSS files
         test: /\.scss$/,
@@ -50,6 +48,14 @@ module.exports = {
         // Rule for image files
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+      },
+      {
+        // New rule for font files
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]', // Preserves original filename and directory structure
+        },
       },
     ],
   },
